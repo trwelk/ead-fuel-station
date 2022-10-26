@@ -26,6 +26,12 @@ public class UserService
         await _userCollection.InsertOneAsync(user);
         return;
     }
+
+        public async Task<List<User>> Login(User user)
+    {
+        FilterDefinition<User> filter = Builders<User>.Filter.Where(x => x.email == user.email && x.password == user.password);
+        return await _userCollection.Find(filter).ToListAsync();
+    }
     public async Task DeleteAsync(string id)
     {
         FilterDefinition<User> filter = Builders<User>.Filter.Eq("Id", id);

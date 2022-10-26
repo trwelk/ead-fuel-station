@@ -10,9 +10,12 @@ public class FuelStation {
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
+    public string? userId { get; set; }
+    
     public string name { get; set; } = null!;
     public string email { get; set; } = null!;
     public string password { get; set; } = null!;
+    public string address { get; set; } = null!;
     public string? latitude { get; set; } = null;
     public string? longitude { get; set; } = null;
     public string contactNumber { get; set; } = null!;

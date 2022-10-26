@@ -23,6 +23,12 @@ public class FuelStationController : Controller
         return await _fuelStationService.GetAsync();
     }
 
+   [HttpGet("GetByUser/{id}")]
+    public async Task<List<FuelStation>> GetByUserId(string id)
+    {
+        return await _fuelStationService.GetByUserIdAsync(id);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] FuelStation fuelStation)
     {
@@ -57,16 +63,20 @@ public class FuelStationController : Controller
          
     }
 
+    
+
     [HttpPost("{id}/FuelType")]
     public async Task<IActionResult> AddFuelType(string id, [FromBody] Fuel fuel)
     {
         Console.WriteLine("type " + fuel.fuelType);
         Console.WriteLine("arrived" + fuel.available);
 
-     await _fuelStationService.AddUserToQueue(id, fId, userQueue);
-     return  NoContent();
+     await _fuelStationService.AddFuelType(id, fuel);
+    return CreatedAtAction(nameof(Get), new { id = fuel.Id }, fuel);
+;
          
     }
+
     [HttpPatch("{id}/FuelType/{fId}/VehiclesInQueue")]
     public async Task<IActionResult> LeaveQueue(string id, string fId, [FromBody] UserQueue userQueue)
     {
